@@ -7,10 +7,7 @@
         <instance id="vacationDc"
                   class="com.company.planner.entity.Vacation">
             <view extends="_local">
-                <property name="employee" view="_minimal">
-                    <property name="fullName"/>
-                    <property name="position"/>
-                </property>
+                <property name="employeeId" view="_minimal"/>
             </view>
             <loader/>
         </instance>
@@ -20,7 +17,7 @@
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="vacationDc">
             <column width="350px">
-                <pickerField id="employeeField" property="employee">
+                <pickerField id="employeeIdField" property="employeeId">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
