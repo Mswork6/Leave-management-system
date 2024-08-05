@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://vacationBrowse.caption"
+        focusComponent="vacationsTable"
+        messagesPack="com.company.planner.web.screens.vacation">
+    <data readOnly="true">
+        <collection id="vacationsDc"
+                    class="com.company.planner.entity.Vacation">
+            <view extends="_local">
+                <property name="employee" view="_minimal">
+                    <property name="fullName"/>
+                    <property name="position"/>
+                </property>
+            </view>
+            <loader id="vacationsDl">
+                <query>
+                    <![CDATA[select e from planner_Vacation e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="vacationsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="vacationsTable"
+                dataLoader="vacationsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="vacationsTable"
+                    width="100%"
+                    dataContainer="vacationsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="employee"/>
+                <column id="vacationStartDate"/>
+                <column id="duration"/>
+                <column id="vacationEndDate"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="vacationsTable.create" caption="msg://createBtn.caption"/>
+                <button id="editBtn" action="vacationsTable.edit" caption="msg://editBtn.caption"/>
+                <button id="removeBtn" action="vacationsTable.remove" caption="msg://removeBtn.caption"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
