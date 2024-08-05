@@ -38,6 +38,7 @@
                 <column id="position"/>
                 <column id="department"/>
                 <column id="email"/>
+                <column id="phoneNumber"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

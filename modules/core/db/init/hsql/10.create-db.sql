@@ -32,6 +32,7 @@ create table PLANNER_EMPLOYEE (
     POSITION_ varchar(255) not null,
     DEPARTMENT varchar(255),
     EMAIL varchar(255),
+    PHONE_NUMBER varchar(255),
     --
     primary key (ID)
 )^

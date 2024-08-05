@@ -20,6 +20,7 @@
                 <textField id="positionField" property="position"/>
                 <textField id="departmentField" property="department"/>
                 <textField id="emailField" property="email"/>
+                <textField id="phoneNumberField" property="phoneNumber"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

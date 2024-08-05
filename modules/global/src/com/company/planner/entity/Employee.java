@@ -36,6 +36,17 @@ public class Employee extends StandardEntity {
     @Email
     private String email;
 
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getEmail() {
         return email;
     }
