@@ -8,7 +8,7 @@
         <collection id="vacationsDc"
                     class="com.company.planner.entity.Vacation">
             <view extends="_local">
-                <property name="employeeId" view="_minimal"/>
+                <property name="personalNumber" view="_minimal"/>
             </view>
             <loader id="vacationsDl">
                 <query>
@@ -35,10 +35,11 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="employeeId"/>
+                <column id="personalNumber"/>
+                <column id="fullName"/>
                 <column id="vacationStartDate"/>
-                <column id="duration"/>
                 <column id="vacationEndDate"/>
+                <column id="duration"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

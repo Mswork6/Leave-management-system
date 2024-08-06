@@ -16,16 +16,27 @@ public class Vacation extends StandardEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "EMPLOYEE")
-    private Employee employeeId;
+    private Employee personalNumber;
 
-    @NotNull
-    @Column(name = "VACATION_START_DATE", nullable = false)
-    private LocalDate vacationStartDate;
+    @Column(name = "FULL_NAME")
+    private String fullName;
 
     @NotNull
     @Column(name = "DURATION", nullable = false)
     @Positive
     private Integer duration;
+
+    @NotNull
+    @Column(name = "VACATION_START_DATE", nullable = false)
+    private LocalDate vacationStartDate;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public Integer getDuration() {
         return duration;
@@ -43,12 +54,12 @@ public class Vacation extends StandardEntity {
         this.vacationStartDate = vacationStartDate;
     }
 
-    public Employee getEmployeeId() {
-        return employeeId;
+    public Employee getPersonalNumber() {
+        return personalNumber;
     }
 
-    public void setEmployeeId(Employee employeeId) {
-        this.employeeId = employeeId;
+    public void setPersonalNumber(Employee personalNumber) {
+        this.personalNumber = personalNumber;
     }
 
     @MetaProperty(related = {"vacationStartDate", "duration"})

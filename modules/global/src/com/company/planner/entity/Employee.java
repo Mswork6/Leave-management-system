@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 
 @Table(name = "PLANNER_EMPLOYEE")
 @Entity(name = "planner_Employee")
-@NamePattern("%s %s|personalNumber,fullName")
+@NamePattern("%s|personalNumber")
 public class Employee extends StandardEntity {
     private static final long serialVersionUID = -4128883590624779007L;
 
