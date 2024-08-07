@@ -31,7 +31,7 @@ create table PLANNER_EMPLOYEE (
     PERSONAL_NUMBER varchar(255) not null,
     FULL_NAME varchar(255) not null,
     POSITION_ varchar(255) not null,
-    DEPARTMENT varchar(255),
+    DEPARTMENT varchar(255) not null,
     EMAIL varchar(255),
     PHONE_NUMBER varchar(255),
     --

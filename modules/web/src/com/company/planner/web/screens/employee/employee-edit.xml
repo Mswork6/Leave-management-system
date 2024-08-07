@@ -27,5 +27,6 @@
             <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
             <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
         </hbox>
+
     </layout>
 </window>

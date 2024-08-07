@@ -8,7 +8,10 @@
         <collection id="vacationsDc"
                     class="com.company.planner.entity.Vacation">
             <view extends="_local">
-                <property name="personalNumber" view="_minimal"/>
+                <property name="personalNumber" view="_minimal">
+                    <property name="fullName">
+                    </property>
+                </property>
             </view>
             <loader id="vacationsDl">
                 <query>
@@ -36,7 +39,7 @@
             </actions>
             <columns>
                 <column id="personalNumber"/>
-                <column id="fullName"/>
+                <column id="personalNumber.fullName"/>
                 <column id="vacationStartDate"/>
                 <column id="vacationEndDate"/>
                 <column id="duration"/>

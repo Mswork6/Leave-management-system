@@ -2,6 +2,7 @@ package com.company.planner.entity;
 
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public class Vacation extends StandardEntity {
     private Employee personalNumber;
 
     @Column(name = "FULL_NAME")
+    @Length(min = 10, max = 40)
     private String fullName;
 
     @NotNull
@@ -30,12 +32,12 @@ public class Vacation extends StandardEntity {
     @Column(name = "VACATION_START_DATE", nullable = false)
     private LocalDate vacationStartDate;
 
+    @Transient
+    @MetaProperty(related = {"vacationStartDate", "duration"})
+    private LocalDate vacationEndDate;
+
     public String getFullName() {
         return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public Integer getDuration() {

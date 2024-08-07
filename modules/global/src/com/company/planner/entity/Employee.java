@@ -18,7 +18,7 @@ public class Employee extends StandardEntity {
 
     @NotNull
     @Column(name = "PERSONAL_NUMBER", nullable = false, unique = true)
-    @Pattern(regexp = "([0-9]+)")
+    @Pattern(message = "В табельном номере должны содержаться только цифры", regexp = "([0-9]+)")
     private String personalNumber;
 
     @NotNull
@@ -29,7 +29,8 @@ public class Employee extends StandardEntity {
     @Column(name = "POSITION_", nullable = false)
     private String position;
 
-    @Column(name = "DEPARTMENT")
+    @Column(name = "DEPARTMENT", nullable = false)
+    @NotNull
     private String department;
 
     @Column(name = "EMAIL")
