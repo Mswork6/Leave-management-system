@@ -2,6 +2,7 @@ package com.company.planner.web.screens.vacation;
 
 import com.company.planner.entity.Employee;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.TextField;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @UiController("planner_Vacation.edit")
 @UiDescriptor("vacation-edit.xml")
@@ -86,6 +88,7 @@ public class VacationEdit extends StandardEditor<Vacation> {
         }
         return false;
     }
+
 
     // --------------------------------------------------------------------------------------- VER 1.1
 

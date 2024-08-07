@@ -8,16 +8,19 @@
                   class="com.company.planner.entity.Vacation">
             <view extends="_local">
                 <property name="personalNumber" view="_minimal">
-                    <property name="fullName">
-                    </property>
+                    <property name="fullName"/>
+                    <property name="position"/>
+                    <property name="department"/>
+                    <property name="email"/>
+                    <property name="phoneNumber"/>
                 </property>
             </view>
             <loader/>
         </instance>
         <collection id="employeeData" class="com.company.planner.entity.Employee">
             <view extends="_local">
-                <property name="fullName">
-                </property>
+                <property name="fullName"/>
+                <property name="position"/>
             </view>
         </collection>
 
