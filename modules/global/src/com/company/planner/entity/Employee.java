@@ -16,9 +16,8 @@ import javax.validation.constraints.Pattern;
 public class Employee extends StandardEntity {
     private static final long serialVersionUID = -4128883590624779007L;
 
-    @NotNull
     @Column(name = "PERSONAL_NUMBER", nullable = false, unique = true)
-    @Pattern(message = "В табельном номере должны содержаться только цифры", regexp = "([0-9]+)")
+    @Pattern(message = "Табельный номер должен состоять только из цифр", regexp = "[0-9]+")
     private String personalNumber;
 
     @NotNull
@@ -40,12 +39,20 @@ public class Employee extends StandardEntity {
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setPersonalNumber(String personalNumber) {
+        this.personalNumber = personalNumber;
+    }
+
+    public String getPersonalNumber() {
+        return personalNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getEmail() {
@@ -80,11 +87,4 @@ public class Employee extends StandardEntity {
         this.fullName = fullName;
     }
 
-    public String getPersonalNumber() {
-        return personalNumber;
-    }
-
-    public void setPersonalNumber(String personalNumber) {
-        this.personalNumber = personalNumber;
-    }
 }

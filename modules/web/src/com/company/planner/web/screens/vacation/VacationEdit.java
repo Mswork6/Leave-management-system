@@ -2,9 +2,10 @@ package com.company.planner.web.screens.vacation;
 
 import com.company.planner.entity.Employee;
 import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
+import com.haulmont.cuba.gui.components.DateField;
+import com.haulmont.cuba.gui.components.HasValue;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.planner.entity.Vacation;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @UiController("planner_Vacation.edit")
 @UiDescriptor("vacation-edit.xml")
@@ -29,7 +29,14 @@ public class VacationEdit extends StandardEditor<Vacation> {
     private Notifications notifications;
     @Inject
     protected TextField<String> fullNameField;
-
+    @Inject
+    protected DateField<LocalDate> vacationEndDateField;
+    @Inject
+    protected DateField<LocalDate> vacationStartDateField;
+    @Inject
+    protected TextField<Integer> durationField;
+    
+    
 //    @Subscribe("commitAndCloseBtn")
 //    protected void onCommitAndCloseBtnClick(Button.ClickEvent event) {
 //        if (!isVacationOverlapping()) {
@@ -76,19 +83,39 @@ public class VacationEdit extends StandardEditor<Vacation> {
                 .parameter("department", department)
                 .list();
 
-        // Проверяем пересечение дат
+         //Проверяем пересечение дат
         for (Vacation vacation : vacations) {
             LocalDate existingStartDate = vacation.getVacationStartDate();
             LocalDate existingEndDate = existingStartDate.plusDays(vacation.getDuration());
-            log.info(String.valueOf(existingStartDate), existingEndDate);
+            log.info(String.valueOf(existingEndDate));
             if ((endDate.isAfter(existingStartDate) && (startDate.isBefore(existingEndDate))) ||
                     (startDate.equals(existingEndDate) || endDate.equals(existingStartDate))) {
                 return true;
             }
         }
         return false;
+        
     }
 
+
+    @Subscribe("durationField")
+    protected void onDurationFieldValueChange(HasValue.ValueChangeEvent<Integer> event) {
+        updateVacationEndDate();
+
+    }
+
+    @Subscribe("vacationStartDateField")
+    protected void onVacationStartDateFieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
+        updateVacationEndDate();
+    }
+
+    private void updateVacationEndDate() {
+        if (vacationStartDateField.getValue() != null && durationField.getValue() != null) {
+            LocalDate endDate = vacationStartDateField.getValue().plusDays(durationField.getValue());
+            vacationEndDateField.setValue(endDate);
+        }
+    }
+    
 
     // --------------------------------------------------------------------------------------- VER 1.1
 
@@ -109,4 +136,5 @@ public class VacationEdit extends StandardEditor<Vacation> {
 //            log.info(vacation.getVacationStartDate().toString());
 //        }
 //    }
+
 }

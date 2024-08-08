@@ -15,12 +15,15 @@
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="employeeDc">
             <column width="350px">
-                <textField id="personalNumberField" property="personalNumber"/>
-                <textField id="fullNameField" property="fullName"/>
+                <textField id="personalNumberField" textChangeEventMode="EAGER" property="personalNumber"
+                           contextHelpText="msg://personalNumberField.contextHelpText"
+                           description="msg://personalNumberField.description"
+                           inputPrompt="msg://personalNumberField.inputPrompt"/>
+                <textField id="fullNameField" property="fullName" inputPrompt="msg://fullNameField.inputPrompt"/>
                 <textField id="positionField" property="position"/>
                 <textField id="departmentField" property="department"/>
-                <textField id="emailField" property="email"/>
-                <textField id="phoneNumberField" property="phoneNumber"/>
+                <textField id="emailField" property="email" inputPrompt="msg://emailField.inputPrompt"/>
+                <maskedField id="phoneNumberField" property="phoneNumber" mask="+# (###) ### ## ##" valueMode="masked"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

@@ -14,6 +14,7 @@
                     <property name="email"/>
                     <property name="phoneNumber"/>
                 </property>
+                <property name="vacationEndDate"/>
             </view>
             <loader/>
         </instance>
@@ -23,7 +24,6 @@
                 <property name="position"/>
             </view>
         </collection>
-
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -39,7 +39,7 @@
                 <textField id="fullNameField" property="personalNumber.fullName"/>
                 <dateField id="vacationStartDateField" property="vacationStartDate"/>
                 <textField id="durationField" property="duration"/>
-                <dateField id="vacationEndDateField" property="vacationEndDate"/>
+                <dateField id="vacationEndDateField" property="vacationEndDate" editable="false"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

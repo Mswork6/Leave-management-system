@@ -9,9 +9,9 @@
                     class="com.company.planner.entity.Vacation">
             <view extends="_local">
                 <property name="personalNumber" view="_minimal">
-                    <property name="fullName">
-                    </property>
+                    <property name="fullName"/>
                 </property>
+                <property name="vacationEndDate"/>
             </view>
             <loader id="vacationsDl">
                 <query>
@@ -28,6 +28,7 @@
                 applyTo="vacationsTable"
                 dataLoader="vacationsDl">
             <properties include=".*"/>
+            <property name="vacationEndDate"/>
         </filter>
         <groupTable id="vacationsTable"
                     width="100%"
