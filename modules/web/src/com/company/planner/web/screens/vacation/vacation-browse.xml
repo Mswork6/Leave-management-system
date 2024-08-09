@@ -22,37 +22,52 @@
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="vacationsTable"
+    <layout expand="vacationsTabSheet"
             spacing="true">
         <filter id="filter"
                 applyTo="vacationsTable"
                 dataLoader="vacationsDl">
             <properties include=".*"/>
             <property name="vacationEndDate"/>
+            <property name="personalNumber.fullName"/>
         </filter>
-        <groupTable id="vacationsTable"
-                    width="100%"
-                    dataContainer="vacationsDc">
-            <actions>
-                <action id="create" type="create"/>
-                <action id="edit" type="edit"/>
-                <action id="remove" type="remove"/>
-            </actions>
-            <columns>
-                <column id="personalNumber"/>
-                <column id="personalNumber.fullName"/>
-                <column id="vacationStartDate"/>
-                <column id="vacationEndDate"/>
-                <column id="duration"/>
-            </columns>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="createBtn" action="vacationsTable.create" caption="msg://createBtn.caption"/>
-                <button id="editBtn" action="vacationsTable.edit" caption="msg://editBtn.caption"/>
-                <button id="removeBtn" action="vacationsTable.remove" caption="msg://removeBtn.caption"/>
-            </buttonsPanel>
-        </groupTable>
+        <tabSheet id="vacationsTabSheet">
+            <tab id="calendarTab" caption="msg://calendarTab.caption" margin="true,false,false,false" spacing="true"
+                 expand="vacationsCalendar">
+                <calendar id="vacationsCalendar"
+                          dataContainer="vacationsDc"
+                          startDateProperty="vacationStartDate"
+                          endDateProperty="vacationEndDate"
+                          captionProperty="fullName"
+                          navigationButtonsVisible="true"
+                          descriptionProperty="fullName"/>
+            </tab>
+            <tab id="tableTab" caption="msg://tableTab.caption" expand="vacationsTable">
+                <groupTable id="vacationsTable"
+                                    width="100%"
+                                    dataContainer="vacationsDc">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="personalNumber"/>
+                        <column id="personalNumber.fullName"/>
+                        <column id="vacationStartDate"/>
+                        <column id="vacationEndDate"/>
+                        <column id="duration"/>
+                    </columns>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn" action="vacationsTable.create" caption="msg://createBtn.caption"/>
+                        <button id="editBtn" action="vacationsTable.edit" caption="msg://editBtn.caption"/>
+                        <button id="removeBtn" action="vacationsTable.remove" caption="msg://removeBtn.caption"/>
+                    </buttonsPanel>
+                </groupTable>
+            </tab>
+        </tabSheet>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>
