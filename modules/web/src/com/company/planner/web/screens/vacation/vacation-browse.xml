@@ -36,11 +36,15 @@
                  expand="vacationsCalendar">
                 <calendar id="vacationsCalendar"
                           dataContainer="vacationsDc"
+                          startDate="2024-08-01"
+                          endDate="2024-09-01"
                           startDateProperty="vacationStartDate"
                           endDateProperty="vacationEndDate"
                           captionProperty="fullName"
                           navigationButtonsVisible="true"
-                          descriptionProperty="fullName"/>
+                          descriptionProperty="fullName"
+                          height="100%"
+                          width="100%"/>
             </tab>
             <tab id="tableTab" caption="msg://tableTab.caption" expand="vacationsTable">
                 <groupTable id="vacationsTable"
