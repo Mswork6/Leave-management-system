@@ -11,7 +11,10 @@
                 <property name="personalNumber" view="_minimal">
                     <property name="fullName"/>
                 </property>
+                <property name="fullName"/>
+                <property name="vacationStartDate"/>
                 <property name="vacationEndDate"/>
+                <property name="duration"/>
             </view>
             <loader id="vacationsDl">
                 <query>
@@ -35,21 +38,19 @@
             <tab id="calendarTab" caption="msg://calendarTab.caption" margin="true,false,false,false" spacing="true"
                  expand="vacationsCalendar">
                 <hbox spacing="true" align="MIDDLE_LEFT">
-                    <button id="prevMonthBtn" caption="Previous Month"/>
-                    <button id="nextMonthBtn" caption="Next Month"/>
+                    <button id="prevMonthBtn" caption="Предыдущий месяц"/>
+                    <button id="nextMonthBtn" caption="Следующий месяц"/>
                 </hbox>
                 <calendar id="vacationsCalendar"
                           dataContainer="vacationsDc"
-                          startDate="2024-08-13"
-                          endDate="2024-09-13"
+
                           startDateProperty="vacationStartDate"
                           endDateProperty="vacationEndDate"
-                          captionProperty="personalNumber.fullName"
+                          captionProperty="fullName"
+
                           navigationButtonsVisible="true"
-                          descriptionProperty="fullName"
                           height="100%"
-                          width="100%"
-                />
+                          width="100%"/>
             </tab>
             <tab id="tableTab" caption="msg://tableTab.caption" expand="vacationsTable">
                 <groupTable id="vacationsTable"

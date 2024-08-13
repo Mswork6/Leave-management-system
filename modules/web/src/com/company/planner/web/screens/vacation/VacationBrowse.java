@@ -1,5 +1,7 @@
 package com.company.planner.web.screens.vacation;
 
+import com.company.planner.web.screens.vacationInfo.VacationInfo;
+import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.Calendar;
 import com.haulmont.cuba.gui.screen.*;
@@ -19,6 +21,8 @@ public class VacationBrowse extends StandardLookup<Vacation> {
     private Button prevMonthBtn;
     @Inject
     protected Calendar<LocalDate> vacationsCalendar;
+    @Inject
+    private ScreenBuilders screenBuilders;
     private LocalDate currentStartDate;
 
     @Subscribe
@@ -26,6 +30,27 @@ public class VacationBrowse extends StandardLookup<Vacation> {
         currentStartDate = LocalDate.now().withDayOfMonth(1);
         vacationsCalendar.setFirstDayOfWeek(java.util.Calendar.MONDAY);
         updateCalendar();
+    }
+
+    @Subscribe("vacationsCalendar")
+    protected void onCalendarCalendarEventClick(Calendar.CalendarEventClickEvent<LocalDate> event) {
+        VacationInfo screen = screenBuilders.screen(this)
+                .withScreenClass(VacationInfo.class)
+                .withLaunchMode(OpenMode.DIALOG)
+                .build();
+
+        Vacation vacation = (Vacation) event.getEntity(); // Предполагается, что событие привязано к сущности Vacation
+
+        // Передаем данные в окно
+        assert vacation != null;
+        screen.setPersonalNumberValue(vacation.getPersonalNumber().getPersonalNumber());
+        screen.setFullNameValue(vacation.getPersonalNumber().getFullName());
+        screen.setStartDateValue(vacation.getVacationStartDate());
+        screen.setEndDateValue(vacation.getVacationEndDate());
+        screen.setDurationValue(String.valueOf(vacation.getDuration()));
+
+
+        screen.show();
     }
 
     @Subscribe("nextMonthBtn")

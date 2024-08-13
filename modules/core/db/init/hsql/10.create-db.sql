@@ -10,7 +10,6 @@ create table PLANNER_VACATION (
     DELETED_BY varchar(50),
     --
     EMPLOYEE varchar(36) not null,
-    FULL_NAME varchar(255),
     DURATION integer not null,
     VACATION_START_DATE date not null,
     VACATION_END_DATE date,

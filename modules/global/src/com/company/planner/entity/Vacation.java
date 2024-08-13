@@ -1,5 +1,6 @@
 package com.company.planner.entity;
 
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
@@ -17,8 +18,10 @@ public class Vacation extends StandardEntity {
     @JoinColumn(name = "EMPLOYEE")
     private Employee personalNumber;
 
-    @Column(name = "FULL_NAME")
-    private String fullName;
+    @MetaProperty
+    public String getFullName() {
+        return personalNumber != null ? personalNumber.getFullName() : "";
+    }
 
     @NotNull
     @Column(name = "DURATION", nullable = false)
@@ -36,10 +39,6 @@ public class Vacation extends StandardEntity {
         this.vacationEndDate = vacationEndDate;
     }
 
-
-    public String getFullName() {
-        return fullName;
-    }
 
     public Integer getDuration() {
         return duration;

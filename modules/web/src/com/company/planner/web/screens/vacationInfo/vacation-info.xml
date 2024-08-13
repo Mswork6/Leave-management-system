@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="Информация об отпуске">
+    <dialogMode forceDialog="true"
+                height="AUTO"
+                modal="true"
+                width="450"/>
+    <layout spacing="true">
+        <grid spacing="true"
+              width="100%">
+            <columns count="2"/>
+            <rows>
+                <row>
+                    <label id="personalNumberLabel"
+                           htmlEnabled="true"
+                           value="Табельный номер"/>
+                    <label id="personalNumberValue"
+                           align="MIDDLE_RIGHT"/>
+                </row>
+                <row>
+                    <label id="fullNameLabel"
+                           htmlEnabled="true"
+                           value="ФИО"/>
+                    <label id="fullNameValue"
+                           align="MIDDLE_RIGHT"/>
+                </row>
+                <row>
+                    <label id="startDateLabel"
+                           htmlEnabled="true"
+                           value="Начало отпуска"/>
+                    <label id="startDateValue"
+                           align="MIDDLE_RIGHT"/>
+                </row>
+                <row>
+                    <label id="endDateLabel"
+                           htmlEnabled="true"
+                           value="Конец отпуска"/>
+                    <label id="endDateValue"
+                           align="MIDDLE_RIGHT"/>
+                </row>
+                <row>
+                    <label id="durationLabel"
+                           htmlEnabled="true"
+                           value="Продолжительность (дн.)"/>
+                    <label id="durationValue"
+                           align="MIDDLE_RIGHT"/>
+                </row>
+            </rows>
+        </grid>
+        <button id="closeButton"
+                align="MIDDLE_CENTER"
+                caption="Закрыть"/>
+    </layout>
+</window>
