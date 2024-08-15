@@ -16,10 +16,6 @@ import java.time.LocalDate;
 @LoadDataBeforeShow
 public class VacationBrowse extends StandardLookup<Vacation> {
     @Inject
-    private Button nextMonthBtn;
-    @Inject
-    private Button prevMonthBtn;
-    @Inject
     protected Calendar<LocalDate> vacationsCalendar;
     @Inject
     private ScreenBuilders screenBuilders;
@@ -39,7 +35,7 @@ public class VacationBrowse extends StandardLookup<Vacation> {
                 .withLaunchMode(OpenMode.DIALOG)
                 .build();
 
-        Vacation vacation = (Vacation) event.getEntity(); // Предполагается, что событие привязано к сущности Vacation
+        Vacation vacation = (Vacation) event.getEntity();
 
         // Передаем данные в окно
         assert vacation != null;

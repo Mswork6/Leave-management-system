@@ -45,7 +45,7 @@
                           dataContainer="vacationsDc"
 
                           startDateProperty="vacationStartDate"
-                          endDateProperty="vacationEndDate"
+                          endDateProperty="vacationEndDateTime"
                           captionProperty="fullName"
 
                           navigationButtonsVisible="true"
