@@ -14,14 +14,11 @@
                     <property name="email"/>
                     <property name="phoneNumber"/>
                 </property>
-                <property name="vacationEndDate"/>
             </view>
             <loader/>
         </instance>
         <collection id="employeeData" class="com.company.planner.entity.Employee">
             <view extends="_local">
-                <property name="fullName"/>
-                <property name="position"/>
             </view>
         </collection>
     </data>
