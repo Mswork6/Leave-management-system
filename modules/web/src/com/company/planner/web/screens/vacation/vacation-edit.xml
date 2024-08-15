@@ -38,7 +38,7 @@
                 </pickerField>
                 <textField id="fullNameField" property="personalNumber.fullName" editable="false"/>
                 <dateField id="vacationStartDateField" property="vacationStartDate"/>
-                <textField id="durationField" property="duration"/>
+                <textField id="durationField" textChangeEventMode="EAGER" property="duration"/>
                 <dateField id="vacationEndDateField" property="vacationEndDate" editable="false"/>
             </column>
         </form>

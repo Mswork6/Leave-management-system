@@ -8,8 +8,7 @@ import com.haulmont.cuba.gui.components.HasValue;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.planner.entity.Vacation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -67,7 +66,7 @@ public class VacationEdit extends StandardEditor<Vacation> {
                 .parameter("vacationId", newVacation.getId())
                 .list();
 
-         //Проверяем пересечение дат
+        //Проверяем пересечение дат
         for (Vacation vacation : vacations) {
             LocalDate existingStartDate = vacation.getVacationStartDate();
             LocalDate existingEndDate = vacation.getVacationEndDate();
@@ -77,7 +76,7 @@ public class VacationEdit extends StandardEditor<Vacation> {
             }
         }
         return false;
-        
+
     }
 
 
@@ -94,7 +93,7 @@ public class VacationEdit extends StandardEditor<Vacation> {
 
     private void updateVacationEndDate() {
         if (vacationStartDateField.getValue() != null && durationField.getValue() != null) {
-            LocalDate endDate = vacationStartDateField.getValue().plusDays(durationField.getValue()-1);
+            LocalDate endDate = vacationStartDateField.getValue().plusDays(durationField.getValue() - 1);
             vacationEndDateField.setValue(endDate);
         }
     }
