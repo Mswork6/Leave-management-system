@@ -33,7 +33,6 @@ public class VacationBrowse extends StandardLookup<Vacation> {
     @Subscribe
     public void onInit(InitEvent event) {
         currentStartDate = LocalDate.now().withDayOfMonth(1).atStartOfDay();
-        vacationsCalendar.setFirstDayOfWeek(java.util.Calendar.MONDAY);
         updateCalendar();
 
         addDateOnlyColumnGenerator("vacationStartDate");
