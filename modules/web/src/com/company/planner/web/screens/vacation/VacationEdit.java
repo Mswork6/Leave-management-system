@@ -12,6 +12,7 @@ import com.company.planner.entity.Vacation;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @UiController("planner_Vacation.edit")
@@ -27,9 +28,9 @@ public class VacationEdit extends StandardEditor<Vacation> {
     @Inject
     protected TextField<String> fullNameField;
     @Inject
-    protected DateField<LocalDate> vacationEndDateField;
+    protected DateField<LocalDateTime> vacationEndDateField;
     @Inject
-    protected DateField<LocalDate> vacationStartDateField;
+    protected DateField<LocalDateTime> vacationStartDateField;
     @Inject
     protected TextField<Integer> durationField;
 
@@ -50,8 +51,8 @@ public class VacationEdit extends StandardEditor<Vacation> {
         Employee employee = newVacation.getPersonalNumber();
         String position = employee.getPosition();
         String department = employee.getDepartment();
-        LocalDate startDate = newVacation.getVacationStartDate();
-        LocalDate endDate = newVacation.getVacationEndDate();
+        LocalDateTime startDate = newVacation.getVacationStartDate();
+        LocalDateTime endDate = newVacation.getVacationEndDate();
 
         // Загружаем все отпуска сотрудников с той же должностью и отделом
         String queryString = "select v from planner_Vacation v " +
@@ -68,8 +69,8 @@ public class VacationEdit extends StandardEditor<Vacation> {
 
         //Проверяем пересечение дат
         for (Vacation vacation : vacations) {
-            LocalDate existingStartDate = vacation.getVacationStartDate();
-            LocalDate existingEndDate = vacation.getVacationEndDate();
+            LocalDateTime existingStartDate = vacation.getVacationStartDate();
+            LocalDateTime existingEndDate = vacation.getVacationEndDate();
             if ((endDate.isAfter(existingStartDate) && (startDate.isBefore(existingEndDate))) ||
                     (startDate.equals(existingEndDate) || endDate.equals(existingStartDate))) {
                 return true;
@@ -93,8 +94,10 @@ public class VacationEdit extends StandardEditor<Vacation> {
 
     private void updateVacationEndDate() {
         if (vacationStartDateField.getValue() != null && durationField.getValue() != null) {
-            LocalDate endDate = vacationStartDateField.getValue().plusDays(durationField.getValue() - 1);
+            LocalDateTime endDate = vacationStartDateField.getValue().plusDays(durationField.getValue() - 1)
+                    .withHour(23).withMinute(59);
             vacationEndDateField.setValue(endDate);
         }
     }
+
 }

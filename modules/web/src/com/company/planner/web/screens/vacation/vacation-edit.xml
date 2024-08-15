@@ -34,9 +34,9 @@
                     </actions>
                 </pickerField>
                 <textField id="fullNameField" property="personalNumber.fullName" editable="false"/>
-                <dateField id="vacationStartDateField" property="vacationStartDate"/>
+                <dateField id="vacationStartDateField" property="vacationStartDate" resolution="DAY"/>
                 <textField id="durationField" textChangeEventMode="EAGER" property="duration"/>
-                <dateField id="vacationEndDateField" property="vacationEndDate" editable="false"/>
+                <dateField id="vacationEndDateField" property="vacationEndDate" editable="false" resolution="DAY"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

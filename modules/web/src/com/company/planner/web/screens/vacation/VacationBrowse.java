@@ -4,11 +4,15 @@ import com.company.planner.web.screens.vacationInfo.VacationInfo;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.Calendar;
+import com.haulmont.cuba.gui.components.GroupTable;
+import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.planner.entity.Vacation;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @UiController("planner_Vacation.browse")
 @UiDescriptor("vacation-browse.xml")
@@ -16,16 +20,24 @@ import java.time.LocalDate;
 @LoadDataBeforeShow
 public class VacationBrowse extends StandardLookup<Vacation> {
     @Inject
-    protected Calendar<LocalDate> vacationsCalendar;
+    protected Calendar<LocalDateTime> vacationsCalendar;
     @Inject
     private ScreenBuilders screenBuilders;
-    private LocalDate currentStartDate;
+    @Inject
+    protected GroupTable<Vacation> vacationsTable;
+
+    private LocalDateTime currentStartDate;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     @Subscribe
     public void onInit(InitEvent event) {
-        currentStartDate = LocalDate.now().withDayOfMonth(1);
+        currentStartDate = LocalDate.now().withDayOfMonth(1).atStartOfDay();
         vacationsCalendar.setFirstDayOfWeek(java.util.Calendar.MONDAY);
         updateCalendar();
+
+        addDateOnlyColumnGenerator("vacationStartDate");
+        addDateOnlyColumnGenerator("vacationEndDate");
     }
 
     @Subscribe("vacationsCalendar")
@@ -62,9 +74,19 @@ public class VacationBrowse extends StandardLookup<Vacation> {
     }
 
     private void updateCalendar() {
-        LocalDate endDate = currentStartDate.plusMonths(1).minusDays(1);
+        LocalDateTime endDate = currentStartDate.plusMonths(1).minusDays(1);
         vacationsCalendar.setStartDate(currentStartDate);
         vacationsCalendar.setEndDate(endDate);
+    }
+
+    private void addDateOnlyColumnGenerator(String columnId) {
+        vacationsTable.addGeneratedColumn(columnId, entity -> {
+            LocalDateTime dateTime = entity.getValue(columnId);
+            if (dateTime != null) {
+                return new Table.PlainTextCell(dateTime.toLocalDate().format(DATE_FORMATTER));
+            }
+            return new Table.PlainTextCell("");
+        });
     }
 
 }

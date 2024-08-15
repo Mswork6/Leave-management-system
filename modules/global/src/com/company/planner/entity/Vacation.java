@@ -1,15 +1,17 @@
 package com.company.planner.entity;
 
 import com.haulmont.chile.core.annotations.MetaProperty;
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Table(name = "PLANNER_VACATION")
 @Entity(name = "planner_Vacation")
+@NamePattern("%s|id")
 public class Vacation extends StandardEntity {
     private static final long serialVersionUID = -8586135482199209593L;
 
@@ -28,17 +30,24 @@ public class Vacation extends StandardEntity {
     @Positive
     private Integer duration;
 
-    @NotNull
     @Column(name = "VACATION_START_DATE", nullable = false)
-    private LocalDate vacationStartDate;
+    @NotNull
+    private LocalDateTime vacationStartDate;
 
     @Column(name = "VACATION_END_DATE")
-    private LocalDate vacationEndDate;
+    private LocalDateTime vacationEndDate;
 
-    public void setVacationEndDate(LocalDate vacationEndDate) {
-        this.vacationEndDate = vacationEndDate;
+    public void setVacationStartDate(LocalDateTime vacationStartDate) {
+        this.vacationStartDate = vacationStartDate;
     }
 
+    public LocalDateTime getVacationStartDate() {
+        return vacationStartDate;
+    }
+
+    public void setVacationEndDate(LocalDateTime vacationEndDate) {
+        this.vacationEndDate = vacationEndDate;
+    }
 
     public Integer getDuration() {
         return duration;
@@ -48,18 +57,9 @@ public class Vacation extends StandardEntity {
         this.duration = duration;
     }
 
-    public LocalDate getVacationStartDate() {
-        return vacationStartDate;
-    }
-
-    public void setVacationStartDate(LocalDate vacationStartDate) {
-        this.vacationStartDate = vacationStartDate;
-    }
-
-    public LocalDate getVacationEndDate() {
+    public LocalDateTime getVacationEndDate() {
         return vacationEndDate;
     }
-
 
     public Employee getPersonalNumber() {
         return personalNumber;

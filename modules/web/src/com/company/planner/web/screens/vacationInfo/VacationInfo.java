@@ -9,6 +9,7 @@ import com.haulmont.cuba.gui.screen.UiDescriptor;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @UiController("event-window")
@@ -37,11 +38,11 @@ public class VacationInfo extends Screen {
     }
 
 
-    public void setStartDateValue(LocalDate startDate) {
+    public void setStartDateValue(LocalDateTime startDate) {
         startDateValue.setValue(startDate.format(dateTimeFormatter));
     }
 
-    public void setEndDateValue(LocalDate endDate) {
+    public void setEndDateValue(LocalDateTime endDate) {
         endDateValue.setValue(endDate.format(dateTimeFormatter));
     }
 

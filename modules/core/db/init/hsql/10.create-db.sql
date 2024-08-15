@@ -11,8 +11,8 @@ create table PLANNER_VACATION (
     --
     EMPLOYEE varchar(36) not null,
     DURATION integer not null,
-    VACATION_START_DATE date not null,
-    VACATION_END_DATE date,
+    VACATION_START_DATE timestamp not null,
+    VACATION_END_DATE timestamp,
     --
     primary key (ID)
 )^
