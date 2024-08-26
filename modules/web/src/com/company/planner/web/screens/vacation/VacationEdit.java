@@ -1,7 +1,6 @@
 package com.company.planner.web.screens.vacation;
 
-import com.company.planner.entity.Employee;
-import com.haulmont.cuba.core.global.DataManager;
+import com.company.planner.service.VacationService;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.DateField;
 import com.haulmont.cuba.gui.components.HasValue;
@@ -13,7 +12,6 @@ import com.company.planner.entity.Vacation;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @UiController("planner_Vacation.edit")
 @UiDescriptor("vacation-edit.xml")
@@ -21,8 +19,6 @@ import java.util.List;
 @LoadDataBeforeShow
 public class VacationEdit extends StandardEditor<Vacation> {
 
-    @Inject
-    private DataManager dataManager;
     @Inject
     private Notifications notifications;
     @Inject
@@ -33,10 +29,13 @@ public class VacationEdit extends StandardEditor<Vacation> {
     protected DateField<LocalDateTime> vacationStartDateField;
     @Inject
     protected TextField<Integer> durationField;
+    @Inject
+    private VacationService vacationService;
 
     @Subscribe
     protected void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
-        if (isVacationOverlapping()) {
+        Vacation newVacation = getEditedEntity();
+        if (vacationService.isVacationOverlapping(newVacation)) {
             event.preventCommit();
             notifications.create()
                     .withCaption("Ошибка")
@@ -45,41 +44,6 @@ public class VacationEdit extends StandardEditor<Vacation> {
                     .show();
         }
     }
-
-    private boolean isVacationOverlapping() {
-        Vacation newVacation = getEditedEntity();
-        Employee employee = newVacation.getPersonalNumber();
-        String position = employee.getPosition();
-        String department = employee.getDepartment();
-        LocalDateTime startDate = newVacation.getVacationStartDate();
-        LocalDateTime endDate = newVacation.getVacationEndDate();
-
-        // Загружаем все отпуска сотрудников с той же должностью и отделом
-        String queryString = "select v from planner_Vacation v " +
-                "join v.personalNumber e " +
-                "where e.position = :position and e.department = :department " +
-                "and v.id <> :vacationId";
-
-        List<Vacation> vacations = dataManager.load(Vacation.class)
-                .query(queryString)
-                .parameter("position", position)
-                .parameter("department", department)
-                .parameter("vacationId", newVacation.getId())
-                .list();
-
-        //Проверяем пересечение дат
-        for (Vacation vacation : vacations) {
-            LocalDateTime existingStartDate = vacation.getVacationStartDate();
-            LocalDateTime existingEndDate = vacation.getVacationEndDate();
-            if ((endDate.isAfter(existingStartDate) && (startDate.isBefore(existingEndDate))) ||
-                    (startDate.equals(existingEndDate) || endDate.equals(existingStartDate))) {
-                return true;
-            }
-        }
-        return false;
-
-    }
-
 
     @Subscribe("durationField")
     protected void onDurationFieldValueChange(HasValue.ValueChangeEvent<Integer> event) {

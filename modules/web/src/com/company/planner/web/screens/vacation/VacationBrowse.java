@@ -39,25 +39,30 @@ public class VacationBrowse extends StandardLookup<Vacation> {
         addDateOnlyColumnGenerator("vacationEndDate");
     }
 
+
     @Subscribe("vacationsCalendar")
     protected void onCalendarCalendarEventClick(Calendar.CalendarEventClickEvent<LocalDate> event) {
+        Vacation vacation = (Vacation) event.getEntity();
+        if (vacation != null) {
+            openVacationInfoScreen(vacation);
+        }
+    }
+
+    private void openVacationInfoScreen(Vacation vacation) {
         VacationInfo screen = screenBuilders.screen(this)
                 .withScreenClass(VacationInfo.class)
                 .withLaunchMode(OpenMode.DIALOG)
                 .build();
+        setVacationInfoScreenData(screen, vacation);
+        screen.show();
+    }
 
-        Vacation vacation = (Vacation) event.getEntity();
-
-        // Передаем данные в окно
-        assert vacation != null;
+    private void setVacationInfoScreenData(VacationInfo screen, Vacation vacation) {
         screen.setPersonalNumberValue(vacation.getPersonalNumber().getPersonalNumber());
         screen.setFullNameValue(vacation.getPersonalNumber().getFullName());
         screen.setStartDateValue(vacation.getVacationStartDate());
         screen.setEndDateValue(vacation.getVacationEndDate());
         screen.setDurationValue(String.valueOf(vacation.getDuration()));
-
-
-        screen.show();
     }
 
     @Subscribe("nextMonthBtn")
@@ -82,7 +87,8 @@ public class VacationBrowse extends StandardLookup<Vacation> {
         vacationsTable.addGeneratedColumn(columnId, entity -> {
             LocalDateTime dateTime = entity.getValue(columnId);
             if (dateTime != null) {
-                return new Table.PlainTextCell(dateTime.toLocalDate().format(DATE_FORMATTER));
+                return new Table.PlainTextCell(dateTime
+                        .toLocalDate().format(DATE_FORMATTER));
             }
             return new Table.PlainTextCell("");
         });
